@@ -163,6 +163,7 @@ Thumbs.db
 *.m4a
 *.flac
 *.ogg
+*.mp4
 
 # Temporary files
 *.tmp
