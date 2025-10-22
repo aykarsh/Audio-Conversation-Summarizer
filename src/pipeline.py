@@ -9,7 +9,8 @@ import time
 from datetime import datetime
 from pathlib import Path
 from typing import Dict, Any, Optional
-
+import whisper
+import torch
 
 class AudioProcessingPipeline:
     """
@@ -88,8 +89,7 @@ class AudioProcessingPipeline:
             print("🎤 Converting speech to text...")
             
             # Import and use Whisper for actual transcription
-            import whisper
-            import torch
+            
             
             # Load Whisper model
             model_size = getattr(self.config.models, 'whisper_model_size', 'base') if self.config else 'base'
@@ -139,7 +139,7 @@ class AudioProcessingPipeline:
                         summary = "Content too short for summarization"
                 else:
                     # Single chunk summarization
-                    summary_result = summarizer(transcript, max_length=150, min_length=30, do_sample=False)
+                    summary_result = summarizer(transcript, max_length=30, min_length=10, do_sample=False)
                     summary = summary_result[0]['summary_text']
             else:
                 summary = "Audio content too short for meaningful summarization"
